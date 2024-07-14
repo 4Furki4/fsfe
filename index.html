@@ -12,8 +12,14 @@
      let ws;
      const proto = window.location.protocol === 'https:' ? 'wss' : 'ws';
      ws = new WebSocket(`${proto}://${window.location.host}`);
-     ws.onmessage((ev) => {
-        console.log(ev.data)
-     })
+     console.log(`${proto}://${window.location.host}`)
+     console.log(ws)
+     ws.addEventListener('open', () => {
+         console.log('connected');
+         ws.send('Hello Server!');
+     });
+     ws.addEventListener('message', (event) => {
+         console.log('Message from server', event.data);
+     });
 </script>
 </html>
